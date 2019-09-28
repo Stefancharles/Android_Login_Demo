@@ -1,0 +1,2 @@
+include ':app', ':nlecloud'
+project(':nlecloud').projectDir = new File('nlecloud-sdk')
