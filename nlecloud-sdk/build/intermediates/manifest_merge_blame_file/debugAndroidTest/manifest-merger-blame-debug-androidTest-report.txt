@@ -3,31 +3,31 @@
 3    package="cn.com.newland.nle_sdk.test" >
 4
 5    <uses-sdk
-5-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:5:5-74
+5-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:5:5-74
 6        android:minSdkVersion="15"
-6-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:5:15-41
+6-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:5:15-41
 7        android:targetSdkVersion="26" />
-7-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:5:42-71
+7-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:5:42-71
 8
 9    <instrumentation
-9-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:11:5-15:77
+9-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:11:5-15:77
 10        android:name="android.support.test.runner.AndroidJUnitRunner"
-10-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:11:22-83
+10-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:11:22-83
 11        android:functionalTest="false"
-11-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:14:22-52
+11-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:14:22-52
 12        android:handleProfiling="false"
-12-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:13:22-53
+12-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:13:22-53
 13        android:label="Tests for cn.com.newland.nle_sdk.test"
-13-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:15:22-75
+13-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:15:22-75
 14        android:targetPackage="cn.com.newland.nle_sdk.test" />
-14-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:12:22-73
+14-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:12:22-73
 15
 16    <application android:debuggable="true" >
-16-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:7:5-9:19
-16-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:7:18-43
+16-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:7:5-9:19
+16-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:7:18-43
 17        <uses-library android:name="android.test.runner" />
-17-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:8:9-60
-17-->E:\vscode\LoginUI-Android\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3341212351575045578.xml:8:23-57
+17-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:8:9-60
+17-->E:\AndroidCode\Android_Login_Demo\nlecloud-sdk\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3031614486074473652.xml:8:23-57
 18    </application>
 19
 20</manifest>

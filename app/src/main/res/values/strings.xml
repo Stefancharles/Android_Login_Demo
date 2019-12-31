@@ -10,4 +10,7 @@
     <string name="password">Password</string>
     <string name="pic_number">Enter confirmation code</string>
     <string name="title_activity_show_temp">Welcome Home!</string>
+    <string name="music">灯</string>
+    <string name="fan">风扇</string>
+    <string name="by_stefan">Designed By Stefan</string>
 </resources>
