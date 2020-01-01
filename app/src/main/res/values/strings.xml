@@ -3,6 +3,8 @@
     <string name="username">Username</string>
     <string name="hello">Hello, there!</string>
     <string name="sign_up">Sign up</string>
+    <string name="get_t">查看历史温度</string>
+    <string name="get_h">查看历史湿度</string>
     <string name="sign_in">Sign in</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="good">Good</string>

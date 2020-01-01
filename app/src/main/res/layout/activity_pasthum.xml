@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/device_beijing"
-    tools:context=".PastdataActivity"
+    tools:context=".getPastHum"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -21,7 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/pastline"
         android:layout_width="match_parent"

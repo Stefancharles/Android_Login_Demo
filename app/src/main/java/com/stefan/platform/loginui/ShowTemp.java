@@ -3,6 +3,7 @@ package com.stefan.platform.loginui;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,8 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.com.newland.nle_sdk.responseEntity.SensorInfo;
 import cn.com.newland.nle_sdk.responseEntity.User;
 import cn.com.newland.nle_sdk.responseEntity.base.BaseResponseEntity;
+import cn.com.newland.nle_sdk.util.NCallBack;
 import cn.com.newland.nle_sdk.util.NetWorkBusiness;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,9 +41,14 @@ public class ShowTemp extends AppCompatActivity {
     private int temperature = 21;//当前温度
     private double temperature_d = 21.0;
     private int alarmTemp = 25;//预警温度限值
+    private Button GetPastTempdata; //历史数据
+    private Button GetPastHumdata;
+    private int humidity = 21;//当前温度
+    private double humidity_d = 21.0;
+    private int alarmHum = 25;
     private boolean alarmFlag = true;//true则可以弹窗，false则不再弹窗
     private boolean allowCount = false;
-    private String deviceID = "41210";
+    private String deviceID = "41209";
     private NetWorkBusiness netWorkBusiness;
     private String accessToken;
     private int FLAG_MSG = 0x001; //定义发送的消息代码
@@ -75,11 +88,16 @@ public class ShowTemp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!light_state){
-                    control(deviceID,"ctrl",1);  // 开灯.
+
+                        control(deviceID,"bool_work",1);  // 开灯.
+
+
                     btn_light.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.power_on);
                 }
                 else{
-                    control(deviceID,"ctrl",0);  //关灯.
+
+                        control(deviceID,"bool_work",0);  //关灯.
+
                     btn_light.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.power_off);
                 }
                 light_state = !light_state;
@@ -90,16 +108,45 @@ public class ShowTemp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!fan_state){
-                    control(deviceID,"defense",1);   //open fan
+
+                        control(deviceID,"fan",1);   //open fan
+
                     btn_fan.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.power_on);
                 }
                 else{
-                    control(deviceID,"defense",0);   //close fan
+
+                        control(deviceID,"fan",0);   //close fan
+
                     btn_fan.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.power_off);
                 }
                 fan_state = !fan_state;
             }
         });
+
+        GetPastTempdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ShowTemp.this,PastdataActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("accessToken",accessToken);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
+        GetPastHumdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ShowTemp.this,getPastHum.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("accessToken",accessToken);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void initView() {
@@ -110,8 +157,10 @@ public class ShowTemp extends AppCompatActivity {
         assert bundle != null;
         accessToken = bundle.getString("accessToken");   //获得传输秘钥
         netWorkBusiness = new NetWorkBusiness(accessToken, "http://api.nlecloud.com:80/");   //进行登录连接
-
-
+        mDeviceTempHum.setTemp(10);
+        mDeviceTempHum.setHum(10);
+        GetPastTempdata = findViewById(R.id.get_past_temp);
+        GetPastHumdata = findViewById(R.id.get_past_hum);
     }
 
     // TODO: 2019/9/24 每隔2分钟刷新温度数据并且显示出来
@@ -126,6 +175,7 @@ public class ShowTemp extends AppCompatActivity {
         public void handleMessage(Message msg) {
             if (msg.what == FLAG_MSG) {
                 getTemperature();
+                getHumidity();
             }
             message = handler.obtainMessage(FLAG_MSG);//从消息池获取空消息对象，标识为FLAG_MSG
             handler.sendMessageDelayed(message, 2000); // 延时2s发送
@@ -155,13 +205,11 @@ public class ShowTemp extends AppCompatActivity {
 
     // TODO: 2019/9/24 从云平台获取温度数据，显示在仪表盘上。注意apitTag要和云平台标识名一致
     public void getTemperature() {
-/*        netWorkBusiness.getSensor(deviceID, "currentTemp", new NCallBack<BaseResponseEntity<SensorInfo>>() {
+        netWorkBusiness.getSensor(deviceID, "temperature", new NCallBack<BaseResponseEntity<SensorInfo>>() {
             @Override
             public void onResponse(final Call<BaseResponseEntity<SensorInfo>> call, final Response<BaseResponseEntity<SensorInfo>> response) {
                 BaseResponseEntity baseResponseEntity = response.body();
                 if (baseResponseEntity != null) {
-                    //获取到了内容,使用json解析.
-                    //JSON 是一种文本形式的数据交换格式，它比XML更轻量、比二进制容易阅读和编写，调式也更加方便;解析和生成的方式很多，Java中最常用的类库有：JSON-Java、Gson、Jackson、FastJson等
                     final Gson gson = new Gson();
                     JSONObject jsonObject;
                     String msg = gson.toJson(baseResponseEntity);
@@ -172,9 +220,9 @@ public class ShowTemp extends AppCompatActivity {
                         String TempValue = resultObj.getString("Value");
                         temperature_d = Double.valueOf(TempValue).intValue();
                         temperature = (int) temperature_d;
-                        if ((temperature >= alarmTemp) && (alarmFlag)) {
-                            dialog();
-                        }
+                        //if ((temperature >= alarmTemp) && (alarmFlag)) {
+                        //    dialog();
+                        //}
                         mDeviceTempHum.setTemp(temperature);//显示温度数据到仪表盘
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -188,11 +236,9 @@ public class ShowTemp extends AppCompatActivity {
             }
 
             public void onFailure(final Call<BaseResponseEntity<SensorInfo>> call, final Throwable t) {
-                Toast.makeText(ShowTemp.this, "Can not get data for now.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShowTemp.this, "Can not get temperature data for now.", Toast.LENGTH_SHORT).show();
             }
-        });*/
-                mDeviceTempHum.setTemp(21);
-                mDeviceTempHum.setHum(25);
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -254,4 +300,39 @@ public class ShowTemp extends AppCompatActivity {
         });
     }
 
-}
+    public void getHumidity() {
+        netWorkBusiness.getSensor(deviceID, "humidity", new NCallBack<BaseResponseEntity<SensorInfo>>() {
+            @Override
+            public void onResponse(final Call<BaseResponseEntity<SensorInfo>> call, final Response<BaseResponseEntity<SensorInfo>> response) {
+                BaseResponseEntity baseResponseEntity = response.body();
+                if (baseResponseEntity != null) {
+                    final Gson gson = new Gson();
+                    JSONObject jsonObject;
+                    String msg = gson.toJson(baseResponseEntity);
+                    try {
+                        jsonObject = new JSONObject(msg);
+                        JSONObject resultObj = (JSONObject) jsonObject.get("ResultObj");
+                        String HumValue = resultObj.getString("Value");
+                        humidity_d = Double.valueOf(HumValue).intValue();
+                        humidity = (int) humidity_d;
+
+                        mDeviceTempHum.setHum(humidity);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            protected void onResponse(BaseResponseEntity<SensorInfo> response) {
+
+            }
+
+            public void onFailure(final Call<BaseResponseEntity<SensorInfo>> call, final Throwable t) {
+                Toast.makeText(ShowTemp.this, "Can not get humidity data for now.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        }
+
+    }

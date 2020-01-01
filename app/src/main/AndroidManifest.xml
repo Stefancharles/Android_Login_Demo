@@ -4,27 +4,33 @@
     package="com.stefan.platform.loginui">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name="com.stefan.platform.loginui.PastdataActivity" />
-        <activity android:name="com.stefan.platform.loginui.MenuActivity" />
         <activity
-            android:name="com.stefan.platform.loginui.ShowTemp"
+            android:name=".getPastHum"
+            android:label="@string/title_activity_show_temp"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".PastdataActivity"
+            android:label="@string/title_activity_show_temp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".ShowTemp"
             android:label="@string/title_activity_show_temp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.stefan.platform.loginui.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan">

@@ -26,7 +26,7 @@ import cn.com.newland.nle_sdk.util.NetWorkBusiness;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class PastdataActivity extends AppCompatActivity {
+public class getPastHum extends AppCompatActivity {
     private LineChart lineChart;//声明图表控件
     private NetWorkBusiness netWorkBusiness;
     private String deviceID = "41209";
@@ -35,7 +35,7 @@ public class PastdataActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pastdata);
+        setContentView(R.layout.activity_pasthum);
         Bundle bundle = getIntent().getExtras();
         String accessToken = bundle.getString("accessToken");   //获得传输秘钥
         netWorkBusiness = new NetWorkBusiness(accessToken,"http://api.nlecloud.com:80/");
@@ -57,7 +57,7 @@ public class PastdataActivity extends AppCompatActivity {
         xAxis.setTextSize(12);
     }
     private void getPnumdata(){
-        netWorkBusiness.getSensorData(deviceID, "temperature", "6", "30", "2019-12-31 00:00:00",
+        netWorkBusiness.getSensorData(deviceID, "humidity", "6", "30", "2019-12-31 00:00:00",
                 "2020-01-02 00:00:00", "DESC", "10", "0", new NCallBack<BaseResponseEntity<SensorDataPageDTO>>() {
                     @Override
                     protected void onResponse(BaseResponseEntity<SensorDataPageDTO> response) {
@@ -88,7 +88,7 @@ public class PastdataActivity extends AppCompatActivity {
                                     entries.add(new Entry(Float.parseFloat(Pnum),i));
                                     list.add(Time);
                                 }
-                                LineDataSet lineDataSet = new LineDataSet(entries,"历史温度");
+                                LineDataSet lineDataSet = new LineDataSet(entries,"历史湿度");
                                 LineData Pdata = new LineData(list,lineDataSet);
                                 lineChart.setData(Pdata);
                                 lineChart.setScaleEnabled(true);
